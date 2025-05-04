@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de QR - Docente</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #555;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #qr {
+      margin-top: 30px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    #status {
+      margin-top: 15px;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h2>🧑🏻‍🏫 Generador de Código QR para Asistencia</h2>
+
+  <label>
+    Materia:
+    <input type="text" id="className" value="Gerencia de Operaciones" placeholder="Ej: Gerencia de Operaciones">
+  </label>
+
+  <br>
+  <button onclick="generarQR()">🎯 Generar QR</button>
+
+  <div id="qr"></div>
+  <p id="status"></p>
+
+  <script>
+    function generarQR() {
+      const className = document.getElementById("className").value;
+      const qrDiv = document.getElementById("qr");
+      qrDiv.innerHTML = ""; // limpia QR anterior
+
+      if (!className) {
+        alert("Por favor ingresa el nombre de la clase.");
+        return;
+      }
+
+      if (!navigator.geolocation) {
+        document.getElementById("status").textContent = "Geolocalización no disponible.";
+        return;
+      }
+
+      document.getElementById("status").textContent = "📍 Obteniendo ubicación...";
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          console.log("✅ Ubicación obtenida:", pos);
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+
+          const payload = {
+            classId: className,
+            timestamp: new Date().toISOString(),
+            lat: lat,
+            lng: lng
+          };
+
+          const qrData = JSON.stringify(payload);
+          new QRCode(qrDiv, {
+            text: qrData,
+            width: 300,
+            height: 300
+          });
+
+          document.getElementById("status").textContent =
+            `✅ QR generado con ubicación: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+        },
+        (error) => {
+          console.error("❌ Error al obtener ubicación:", error);
+          document.getElementById("status").textContent =
+            "❌ Error al obtener ubicación: " + error.message;
+        }
+      );
+    }
+  </script>
+</body>
+</html>
