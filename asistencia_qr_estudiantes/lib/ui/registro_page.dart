@@ -77,19 +77,12 @@ class _RegistroPageState extends State<RegistroPage> {
                   const SizedBox(height: 40),
                   // Header with icon
                   Center(
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.primary.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Icon(
-                        Icons.school_rounded,
-                        size: 50,
-                        color: Theme.of(context).colorScheme.primary,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      child: Image.asset(
+                        'assets/images/LogoLP.png',
+                        width: 200,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),

@@ -82,6 +82,7 @@ class _EscanerPageState extends State<EscanerPage>
       final apellido = prefs.getString('apellido') ?? "";
 
       if (distancia <= 50) {
+        // aquí se define el rango de distancia
         final response = await http.post(
           Uri.parse(
             'https://script.google.com/macros/s/AKfycbzN8Ce2atUS08JyvlhrOmsreGl50ndp6EmE4m2eyZrnoH1RTNBLfD5_DD_K18p5guFp/exec',
@@ -151,17 +152,12 @@ class _EscanerPageState extends State<EscanerPage>
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          'Escanea para registrar asistencia',
+                          'Escanea para registrar tu asistencia',
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey[600]),
                         ),
                       ],
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: () => _scannerController.start(),
-                    tooltip: 'Reiniciar escáner',
                   ),
                 ],
               ),

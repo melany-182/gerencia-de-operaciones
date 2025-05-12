@@ -28,6 +28,8 @@
     }
 
     body {
+      margin: 0;
+      padding: 0 1rem;
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-primary);
       color: var(--text-primary);
@@ -35,7 +37,11 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 2rem 1rem;
+    }
+
+    img {
+      display: block;
+      margin: 0 auto;
     }
 
     .container {
@@ -45,7 +51,7 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 2rem;
-      margin-bottom: 2rem;
+      margin: 2rem;
     }
 
     .header {
@@ -98,7 +104,6 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 100%;
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
       font-weight: 500;
@@ -177,6 +182,14 @@
 </head>
 <body>
   <div class="container">
+    <div style="margin-top: 0; margin-bottom: 1rem;">
+      <img 
+        src="LogoLP.png" 
+        alt="Logo UCB" 
+        style="max-width: 320px; width: 100%; height: auto;"
+      >
+    </div>
+
     <div class="header">
       <h1>🧑🏻‍🏫 Generador de Código QR para Asistencia</h1>
       <p class="subtitle">Sistema de control para docentes</p>
@@ -192,10 +205,12 @@
       >
     </div>
 
-    <button class="button" onclick="generarQR()">
-      <span class="button-icon">🎯</span>
-      Generar Código QR
-    </button>
+    <div style="text-align: center;">
+      <button class="button" onclick="generarQR()">
+        <span class="button-icon">🎯</span>
+        Generar Código QR
+      </button>
+    </div>
 
     <div class="qr-container">
       <div id="qr"></div>
